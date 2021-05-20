@@ -81,25 +81,5 @@ public class AmapView implements PlatformView, MethodChannel.MethodCallHandler {
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-        Map<String, Object> args = (Map<String, Object>) call.arguments;
-        if (call.method.equals("sendData")) {
-            String name = (String) args.get("data");
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(34.341568, 108.940174));
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.mime)));
-            markerOptions.setFlat(true);
-            markerOptions.snippet("DefaultMarker");
-            //设置覆盖物比例
-            markerOptions.anchor(0.5f, 0.5f);
-            Log.d("xiao", "初始化mark");
-            Marker marker = aMap.addMarker(markerOptions);
-            Log.d("xiao", "添加mark");
-            Map<String, String> r = new HashMap<>();
-            r.put("result", "成功");
-            result.success(r);
-        }
-        else {
-            result.notImplemented();
-        }
     }
 }

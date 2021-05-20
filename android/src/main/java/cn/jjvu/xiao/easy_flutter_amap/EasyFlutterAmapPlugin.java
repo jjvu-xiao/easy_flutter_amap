@@ -25,8 +25,6 @@ public class EasyFlutterAmapPlugin implements FlutterPlugin, MethodCallHandler, 
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-//    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "easy_flutter_amap");
-//    channel.setMethodCallHandler(this);
     messenger = flutterPluginBinding.getBinaryMessenger();;
     platformViewRegistry = flutterPluginBinding.getPlatformViewRegistry();
   }

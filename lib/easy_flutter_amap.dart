@@ -1,14 +1,22 @@
-
-import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class EasyFlutterAmap {
-  static const MethodChannel _channel =
-      const MethodChannel('easy_flutter_amap');
+class AmapView extends StatefulWidget {
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  @override
+  _AmapViewState createState() => _AmapViewState();
+}
+
+class _AmapViewState extends State<AmapView> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: AndroidView(
+        viewType:"cn.jjvu.xiao.easy_flutter_amap/mapview",
+        creationParamsCodec: StandardMessageCodec(),
+      ),
+    );
   }
+
 }
