@@ -4,8 +4,4 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
-     <!--<meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="ed1427080cd971b9de07a926c7bd0408">-->
 </manifest>

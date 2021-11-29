@@ -1,13 +1,13 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint easy_flutter_amap.podspec' to validate before publishing.
+# Run `pod lib lint easy_flutter_amap.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
   s.name             = 'easy_flutter_amap'
   s.version          = '0.0.1'
-  s.summary          = 'Flutter的 高德地图插件，原生采用 Java 开发 Android ，Swift 开发iOS.'
+  s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
-Flutter的 高德地图插件，原生采用 Java 开发 Android ，Swift 开发iOS.
+A new Flutter project.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }

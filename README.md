@@ -1,6 +1,6 @@
 # easy_flutter_amap
 
-Flutter的 高德地图插件，原生采用 Java 开发 Android ，Swift 开发iOS.
+A new Flutter project.
 
 ## Getting Started
 
