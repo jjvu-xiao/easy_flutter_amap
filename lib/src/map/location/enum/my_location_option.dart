@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
+
+import 'my_location_type.dart';
+
 /// 我的位置选项
 @immutable
 class MyLocationOption {
   MyLocationOption({
     this.show = true,
-    this.myLocationType = MyLocationType.Locate,
+    this.myLocationType = MyLocationType.LOCATE,
     this.interval = Duration.zero,
     this.strokeColor = Colors.transparent,
     this.strokeWidth = 0,
@@ -17,7 +21,7 @@ class MyLocationOption {
   final bool show;
 
   /// 定位类型
-  final MyLocationType myLocationType;
+  late final MyLocationType myLocationType;
 
   /// 定位间隔
   final Duration interval;
@@ -34,10 +38,10 @@ class MyLocationOption {
   /// 图标
   ///
   /// 资源图片则使用[AssetImage], 网络图片则使用[NetworkImage], 文件图片则使用[FileImage]
-  final ImageProvider iconProvider;
+  late final ImageProvider? iconProvider;
 
   /// 锚点
-  final double anchorU, anchorV;
+  late final double? anchorU, anchorV;
 
   @override
   String toString() {

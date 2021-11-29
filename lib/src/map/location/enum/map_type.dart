@@ -1,28 +1,36 @@
-/// 地图类型
+/// 地图图层类型
 enum MapType {
-  /// 标准视图
-  Standard,
+  /// 正常
+  NORMAL,
 
-  /// 卫星视图
-  Satellite,
+  /// 夜间
+  NIGHT,
 
-  /// 黑夜视图
-  Night,
+  /// 导航
+  NAVI,
 
-  /// 导航视图
-  Navi,
+  /// 公交
+  BUS,
 
-  /// 公交视图
-  Bus,
+  /// 卫星
+  SATELLITE,
 }
 
 extension MapTypeExtension on MapType {
   String get name {
     switch (this) {
-      case MapType.Standard:
-        return "Standard";
-      case MapType.Satellite:
-        return "Satellite";
+      case MapType.NORMAL:
+        return 'NORMAL';
+      case MapType.NIGHT:
+        return 'NIGHT';
+      case MapType.NAVI:
+        return 'NAVI';
+      case MapType.BUS:
+        return 'BUS';
+      case MapType.SATELLITE:
+        return 'SATELLITE';
+      default:
+        return 'NORMAL';
     }
   }
 }
