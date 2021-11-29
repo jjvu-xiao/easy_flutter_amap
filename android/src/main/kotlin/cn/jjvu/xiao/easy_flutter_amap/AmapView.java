@@ -85,8 +85,19 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     // 缩放等级
     private float zoomLevel;
 
-
     private UiSettings uiSettings;
+
+    // 初始化缩放等级, [3, 19];
+    private Double initialZoomLevel;
+
+    // 最大缩放等级
+    private Double maxZoomLevel;
+
+    // 最小缩放等级
+    private Double minZoomLevel;
+
+    // 自定义地图ID
+    private String customMapStyleId;
 
 
     public AmapView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params) {
@@ -108,6 +119,7 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     }
 
     private void initAmapView() {
+        setMapType(this.mapType);
         aMap.moveCamera(CameraUpdateFactory.zoomTo(this.zoomLevel));
     }
 
@@ -267,6 +279,6 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-        
+
     }
 }
