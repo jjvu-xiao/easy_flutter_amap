@@ -12,8 +12,12 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CustomMapStyleOptions;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.MyLocationStyle;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.flutter.Log;
@@ -29,9 +33,11 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
 
     private FlutterActivity activity;
 
-    private int id;
+    private Integer id;
 
     private Map<String, Object> creationParams;
+
+    private MethodChannel methodChannel;
 
     private MapView mapView;
 
@@ -39,7 +45,7 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
 
     private static final String TAG = "AmapView";
 
-    private MethodChannel methodChannel;
+    private UiSettings uiSettings;
 
     // 当前位置的样式
     private MyLocationStyle myLocationStyle = new MyLocationStyle();
@@ -67,7 +73,7 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     // 是否显示楼块
     private boolean showBuildings;
 
-    // 是否显示地图文字标注
+    // 是否显示底图文字标注
     private boolean showMapText;
 
     // 是否显示缩放控件
@@ -82,10 +88,38 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     // 是否显示比例尺控件
     private boolean showScaleControl;
 
-    // 缩放等级
-    private float zoomLevel;
+    // 是否显示室内地图
+    private boolean showIndoorMap;
 
-    private UiSettings uiSettings;
+    // 是否显示室内地图控件
+    private boolean showIndoorMapControl;
+
+    // 所有手势是否可用
+    private boolean allGestureEnable;
+
+    // 缩放手势是否可用
+    private boolean zoomGestureEnable;
+
+    // 旋转手势是否可用
+    private boolean rotateGestureEnable;
+
+    // 拖拽手势是否可用
+    private boolean scrollGestureEnable;
+
+    // 倾斜手势是否可用
+    private boolean tiltGestureEnable;
+
+    // 是否以地图中心点缩放
+    private boolean isGestureScaleByMapCenter;
+
+    // 缩放控件位置
+    private String zoomPosition;
+
+    // Logo位置
+    private String logoPosition;
+
+    // 左下边距
+    private HashMap<String, Integer> logoMargin;
 
     // 初始化缩放等级, [3, 19];
     private Double initialZoomLevel;
@@ -99,6 +133,14 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     // 自定义地图ID
     private String customMapStyleId;
 
+    // 默认显示视觉位置
+    private HashMap<String, Object> defaultCameraPosition;
+
+    // 显示范围，西南角和东北角
+    private List<HashMap<String, Double>> bound;
+
+    // 缩放等级
+    private float zoomLevel;
 
     public AmapView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params) {
         Log.d(TAG, params.toString());
@@ -119,8 +161,129 @@ public class AmapView implements PlatformView, DefaultLifecycleObserver, MethodC
     }
 
     private void initAmapView() {
+        setMaxZoomLevel(this.maxZoomLevel);
+        setMinZoomLevel(this.minZoomLevel);
+        if (this.defaultCameraPosition == null && this.bound == null) {
+            this.aMap.moveCamera(CameraUpdateFactory.zoomTo(this.initialZoomLevel.floatValue()));
+        }
+        this.myLocationStyle.myLocationType(this.handleMyLocationStyle(this.showMyLocation));
+        this.myLocationStyle.interval(this.locationInterval.longValue());
+        this.myLocationStyle.showMyLocation(true);
+        this.aMap.setMyLocationStyle(this.myLocationStyle);
+        if (this.autoLocateAfterInit && this.defaultCameraPosition == null && this.bound == null) {
+            this.aMap.setMyLocationEnabled(true);
+        }
+        if (this.bound != null) {
+            setBound(this.bound);
+        }
         setMapType(this.mapType);
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(this.zoomLevel));
+        setMapLanguage(this.mapLanguage);
+        turnOnZoomControl(this.showTraffic);
+        turnOnBuildings(this.showBuildings);
+        turnOnMapText(this.showMapText);
+        showZoomControl(this.showZoomControl);
+        turnOnCompass(this.showCompass);
+        turnOnLocationButton(this.showLocationButton);
+        turnOnScaleControl(this.showScaleControl);
+        setShowIndoorMap(this.showIndoorMap);
+        this.uiSettings.setGestureScaleByMapCenter(this.isGestureScaleByMapCenter);
+        enableAllGesture(this.allGestureEnable);
+
+    }
+
+    private void enableAllGesture(boolean allGestureEnable) {
+        uiSettings.setAllGesturesEnabled(allGestureEnable);
+        enableZoomGesture(this.zoomGestureEnable);
+    }
+
+
+    /**
+     * 缩放手势是否启用
+     */
+    private void enableZoomGesture(boolean zoomGestureEnable) {
+        this.uiSettings.setZoomGesturesEnabled(zoomGestureEnable);
+    }
+
+    /**
+     * 是否显示室内地图
+     *
+     * @param show 是否显示
+     */
+    private void setShowIndoorMap(boolean show) {
+        this.aMap.showIndoorMap(show);
+        if (show) {
+            this.uiSettings.setIndoorSwitchEnabled(show);
+        }
+        else {
+            this.uiSettings.setIndoorSwitchEnabled(false);
+        }
+    }
+
+    /**
+     * 设置是否显示比例尺控件
+     *
+     * @param on 是否显示
+     */
+    private void turnOnScaleControl(boolean on) {
+        this.uiSettings.setScaleControlsEnabled(on);
+    }
+
+    /**
+     * 设置是否显示定位按钮
+     *
+     * @param on 是否显示
+     */
+    private void turnOnLocationButton(boolean on) {
+        this.uiSettings.setMyLocationButtonEnabled(on);
+    }
+
+    /**
+     * 设置是否显示指南针
+     *
+     * @param on 是否显示
+     */
+    private void turnOnCompass(boolean on) {
+        this.uiSettings.setCompassEnabled(on);
+    }
+
+    private void showZoomControl(boolean showZoomControl) {
+    }
+
+    /**
+     * 打开/关闭地图文字标注
+     */
+    private void turnOnMapText(boolean showMapText) {
+        this.aMap.showMapText(showMapText);
+    }
+
+    /**
+     * 打开/关闭楼块
+     */
+    private void turnOnBuildings(boolean showBuildings) {
+        this.aMap.showBuildings(showBuildings);
+    }
+
+    /**
+     * 设置地图显示范围
+     *
+     * @param bound 西南角、东北角
+     */
+    private void setBound(List<HashMap<String, Double>> bound) {
+        this.aMap.setMapStatusLimits(
+            new LatLngBounds(
+                new LatLng(bound.get(0).get("latitude"), bound.get(0).get("longitude")),
+                new LatLng(bound.get(1).get("latitude"), bound.get(1).get("latitude"))
+            )
+        );
+    }
+
+    private void setMapLanguage(String mapLanguage) {
+        String language;
+        if (mapLanguage.equals("CHINESE"))
+            language = AMap.CHINESE;
+        else
+            language = AMap.ENGLISH;
+        this.aMap.setMapLanguage(language);
     }
 
     /*
