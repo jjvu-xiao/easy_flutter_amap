@@ -1,14 +1,5 @@
+library easy_flutter_amap;
 
-import 'dart:async';
+import 'src/map/view/amap_view_controller.dart';
 
-import 'package:flutter/services.dart';
-
-class EasyFlutterAmap {
-  static const MethodChannel _channel =
-      const MethodChannel('easy_flutter_amap');
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-}
+import 'src/map/view/map_view.dart';

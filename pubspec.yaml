@@ -1,8 +1,8 @@
 name: easy_flutter_amap
-description: A new Flutter project.
+description: 简单实用,好用的flutter高德地图插件
 version: 0.0.1
-author:
-homepage:
+author: xiaobing<m18779334084@163.com>
+homepage: https://github.com/jjva-xiao/easy_flutter_amap
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -31,10 +31,4 @@ flutter:
         package: cn.jjvu.xiao.easy_flutter_amap
         pluginClass: EasyFlutterAmapPlugin
       ios:
-        pluginClass: EasyFlutterAmapPlugin
-      linux:
-        pluginClass: EasyFlutterAmapPlugin
-      macos:
-        pluginClass: EasyFlutterAmapPlugin
-      windows:
         pluginClass: EasyFlutterAmapPlugin
