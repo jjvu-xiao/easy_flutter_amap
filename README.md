@@ -1,10 +1,10 @@
 [English](README_ENG.md)
 # easy_flutter_amap
 
-Flutter 高德地图插件
+Flutter 高德地图插件（正在开发中）
 
-## 描述
-基于高德地图封装的跨平台 Android, iOS平台的地图插件，适用于各种地图的应用场景，经受住工业级生产环境使用
+## 目标
+基于高德地图封装的跨平台 Android, iOS平台的地图插件，适用于各种地图的应用场景
 
 ## 效果如下
 ![效果动态图](https://img-blog.csdnimg.cn/20210521154534717.gif#pic_center)
