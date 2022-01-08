@@ -57,6 +57,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  easy_permission:
+    dependency: "direct main"
+    description:
+      name: easy_permission
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:

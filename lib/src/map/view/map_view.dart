@@ -17,6 +17,7 @@ class AMapView extends StatelessWidget {
     this.autoLocateAfterInit = false,
     this.mapType = MapType.NORMAL,
     this.mapLanguage = MapLanguage.CHINESE,
+    this.myLocationType = MyLocationType.MAP_ROTATE_NO_CENTER,
     this.locationInterval = 2000,
     this.showTraffic = false,
     this.showBuildings = true,
@@ -63,6 +64,9 @@ class AMapView extends StatelessWidget {
 
   /// 定位间隔，仅定位类型为连续定位时有效，单位毫秒
   final int locationInterval;
+
+  /// 定位类型
+  final MyLocationType myLocationType;
 
   /// 是否显示实时路况
   final bool showTraffic;
@@ -138,8 +142,9 @@ class AMapView extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> creationParams = <String, dynamic>{
       'autoLocateAfterInit': autoLocateAfterInit,
-      'mapType': mapType.name,
-      'mapLanguage': mapLanguage.name,
+      'mapType': mapType.val,
+      'mapLanguage': mapLanguage.val,
+      'myLocationType': myLocationType.val,
       'locationInterval': locationInterval,
       'showTraffic': showTraffic,
       'showBuildings': showBuildings,
@@ -188,7 +193,7 @@ class AMapView extends StatelessWidget {
   }
 
   void _onViewCreated(int id) {
-    final controller = AmapViewController.withId(id);
+    final controller = AmapViewController();
     if (this.onAMapViewCreated != null) {
       this.onAMapViewCreated!(controller);
     }

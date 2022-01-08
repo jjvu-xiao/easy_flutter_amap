@@ -18,4 +18,14 @@ extension MapLanguageExtension on MapLanguage {
         return 'CHINESE';
     }
   }
+  String get val {
+    switch (this) {
+      case MapLanguage.CHINESE:
+        return 'zh_cn';
+      case MapLanguage.ENGLISH:
+        return 'en';
+      default:
+        return 'zh_cn';
+    }
+  }
 }
