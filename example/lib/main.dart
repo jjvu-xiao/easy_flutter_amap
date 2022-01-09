@@ -1,11 +1,34 @@
+import 'dart:io';
+
+import 'package:easy_permission/easy_permission.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:easy_flutter_amap/easy_flutter_amap.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await requestPermissions();
   runApp(MyApp());
+}
+
+// 申请权限
+Future<void> requestPermissions() async {
+  if (Platform.isAndroid) {
+    List<PermissionType> types = [];
+    // 申请位置权限
+    types.add(PermissionType.LOCATION);
+    // 申请相机权限
+    types.add(PermissionType.CAMERA);
+    // 申请存储权限
+    types.add(PermissionType.STORAGE);
+    // 申请麦克风权限
+    types.add(PermissionType.MICROPHONE);
+    // 申请日历权限
+    types.add(PermissionType.CALENDAR);
+    await EasyPermission.requestPermissions(types);
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -14,32 +37,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+
+  AmapViewController controller;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await EasyFlutterAmap.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    controller = AmapViewController();
+    controller.setMyLocationStyle(MyLocationStyle(myLocationType: MyLocationType.MAP_ROTATE));
   }
 
   @override
@@ -47,11 +52,28 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: GestureDetector(
+              child: const Text('Plugin example app'),
+              onTap: () {
+                // controller.setMyLocationStyle(MyLocationStyle(myLocationType: MyLocationType.MAP_ROTATE));
+                controller.setMyLocationType(MyLocationType.MAP_ROTATE_NO_CENTER);
+              },
+          ),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: AMapView(
+            myLocationType: MyLocationType.MAP_ROTATE_NO_CENTER,
+            locationInterval: 2000,
+            controller: controller,
+          )
         ),
+        // floatingActionButton: FloatingActionButton(
+        //   child: Button(
+        //     child: Text("设置"),
+        //     onPressed: () {
+        //     },
+        //   ),
+        // ),
       ),
     );
   }

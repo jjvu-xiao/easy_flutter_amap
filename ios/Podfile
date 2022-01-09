@@ -1,5 +1,4 @@
 platform :ios, '10.0'
-
-inhibit_all_warnings! 
-
+target 'Runner' do
+    pod 'AMap3DMap', '7.8.0'
 end

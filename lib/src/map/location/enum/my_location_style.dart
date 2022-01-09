@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:easy_flutter_amap/easy_flutter_amap.dart';
 import 'package:flutter/material.dart';
 
 /// 定位、且将视角移动到地图中心点，定位点跟随设备移动
@@ -48,7 +49,7 @@ class MyLocationStyle {
   late final double strokeWidth;
 
   /// 我的位置展示模式
-  late final int myLocationType;
+  late final MyLocationType myLocationType;
 
   /// 设置发起定位请求的时间间隔，单位：毫秒，默认值：1000毫秒，如果传小于1000的任何值将执行单次定位。 [Android]
   late final int interval;
@@ -78,7 +79,7 @@ class MyLocationStyle {
     this.radiusFillColor = Colors.transparent,
     this.strokeColor = Colors.transparent,
     this.strokeWidth = 1,
-    this.myLocationType = LOCATION_TYPE_LOCATE,
+    this.myLocationType = MyLocationType.LOCATION_ROTATE,
     this.interval = 0,
     this.showMyLocation = true,
     this.showsAccuracyRing = true,
@@ -89,21 +90,25 @@ class MyLocationStyle {
   });
 
   Map<String, Object> toJson() {
+    // return {
+    //   'myLocationIcon': myLocationIcon,
+    //   'anchorU': anchorU,
+    //   'anchorV': anchorV,
+    //   'radiusFillColor': radiusFillColor.value.toRadixString(16),
+    //   'strokeColor': strokeColor.value.toRadixString(16),
+    //   'strokeWidth': strokeWidth,
+    //   'myLocationType': myLocationType.val,
+    //   'interval': interval,
+    //   'showMyLocation': showMyLocation,
+    //   'showsAccuracyRing': showsAccuracyRing,
+    //   'showsHeadingIndicator': showsHeadingIndicator,
+    //   'locationDotBgColor': locationDotBgColor.value.toRadixString(16),
+    //   'locationDotFillColor': locationDotFillColor.value.toRadixString(16),
+    //   'enablePulseAnnimation': enablePulseAnimation,
+    // };
     return {
-      'myLocationIcon': myLocationIcon,
-      'anchorU': anchorU,
-      'anchorV': anchorV,
-      'radiusFillColor': radiusFillColor.value.toRadixString(16),
-      'strokeColor': strokeColor.value.toRadixString(16),
-      'strokeWidth': strokeWidth,
-      'myLocationType': myLocationType,
-      'interval': interval,
-      'showMyLocation': showMyLocation,
-      'showsAccuracyRing': showsAccuracyRing,
-      'showsHeadingIndicator': showsHeadingIndicator,
-      'locationDotBgColor': locationDotBgColor.value.toRadixString(16),
-      'locationDotFillColor': locationDotFillColor.value.toRadixString(16),
-      'enablePulseAnnimation': enablePulseAnimation,
+      'myLocationType': myLocationType.val ?? "",
+      "locationInterval": interval,
     };
   }
 
@@ -116,7 +121,7 @@ class MyLocationStyle {
     Color? radiusFillColor,
     Color? strokeColor,
     double? strokeWidth,
-    int? myLocationType,
+    MyLocationType? myLocationType,
     int? interval,
     bool? showMyLocation,
     bool? showsAccuracyRing,

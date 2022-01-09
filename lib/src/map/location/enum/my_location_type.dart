@@ -48,4 +48,27 @@ extension MyLocationTypeExtension on MyLocationType {
         return 'SHOW';
     }
   }
+
+  int get val {
+    switch (this) {
+      case MyLocationType.SHOW:
+        return 0;
+      case MyLocationType.LOCATE:
+        return 1;
+      case MyLocationType.FOLLOW:
+        return 2;
+      case MyLocationType.MAP_ROTATE:
+        return 3;
+      case MyLocationType.LOCATION_ROTATE:
+        return 4;
+      case MyLocationType.LOCATION_ROTATE_NO_CENTER:
+        return 5;
+      case MyLocationType.FOLLOW_NO_CENTER:
+        return 6;
+      case MyLocationType.MAP_ROTATE_NO_CENTER:
+        return 7;
+      default:
+        return 4;
+    }
+  }
 }
