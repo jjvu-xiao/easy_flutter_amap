@@ -1,0 +1,5 @@
+*.kt linguist-vendored
+*.java linguist-vendored
+*.swift linguist-vendored
+*.h linguist-vendored
+*.m linguist-vendored
