@@ -19,6 +19,14 @@ class EasyAmapView : NSObject, FlutterPlatformView {
     
     private var _view: UIView
     
+//    private var locationInterval: Int
+    
+//    private var showZoom: Bool
+    
+//    private var showCompass: Bool
+    
+//    private var showScale: Bool
+    
     init(messenger: FlutterBinaryMessenger, params: Dictionary<String, Any?>) {
         _view = UIView()
 //        self.params = params
@@ -40,7 +48,15 @@ class EasyAmapView : NSObject, FlutterPlatformView {
         AMapServices.shared().enableHTTPS = true
         self.mapView.showsUserLocation = true
         self.mapView.userTrackingMode = .followWithHeading
+        
+        let r = MAUserLocationRepresentation()
+        r.showsHeadingIndicator = true
+        r.showsAccuracyRing = false
+        mapView.update(r)
+        
         self.mapView.mapType = setMapType(val: params["mapType"] as! Int) ?? MAMapType.standard
+        self.mapView.showsScale = params["showScale"] as! Bool
+        self.mapView.showsCompass = params["showCompass"] as! Bool
     }
     
     func setMapType(val mapType: Int) -> MAMapType? {

@@ -12,7 +12,7 @@ public class SwiftEasyFlutterAmapPlugin: NSObject, FlutterPlugin{
     factory = EasyFlutterAmapFactory(messenger: registrar.messenger())
     registrar.register(factory!, withId: "AMapView")
   }
-
+		
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     result(FlutterMethodNotImplemented)
   }

@@ -19,21 +19,14 @@ class AMapView extends StatelessWidget {
     this.mapLanguage = MapLanguage.CHINESE,
     this.myLocationType = MyLocationType.MAP_ROTATE_NO_CENTER,
     this.locationInterval = 2000,
-    this.showTraffic = false,
-    this.showBuildings = true,
-    this.showMapText = true,
-    this.showZoomControl = true,
+    this.showZoom = true,
     this.showCompass = false,
-    this.showLocationButton = false,
-    this.showScaleControl = false,
-    this.showIndoorMap = false,
-    this.showIndoorMapControl = false,
-    this.allGestureEnable,
-    this.zoomGestureEnable = true,
-    this.rotateGestureEnable = true,
-    this.scrollGestureEnable = true,
-    this.tiltGestureEnable = true,
-    this.isGestureScaleByMapCenter = false,
+    this.showScale = false,
+    this.allGesturesEnabled,
+    this.zoomGesturesEnabled = true,
+    this.rotateGesturesEnabled = true,
+    this.scrollGesturesEnabled = true,
+    this.tiltGesturesEnabled = true,
     this.initialZoomLevel = 12.0,
     this.maxZoomLevel = 20.0,
     this.minZoomLevel = 3.0,
@@ -68,58 +61,33 @@ class AMapView extends StatelessWidget {
   /// 定位类型
   final MyLocationType myLocationType;
 
-  /// 是否显示实时路况
-  final bool showTraffic;
-
-  /// 是否显示楼块
-  final bool showBuildings;
-
-  /// 是否显示底图文字标注
-  ///
-  /// * 只针对Android
-  final bool showMapText;
-
   /// 是否显示缩放控件
   ///
   /// * 只针对Android
-  final bool showZoomControl;
+  final bool showZoom;
 
   /// 是否显示指南针
   final bool showCompass;
 
-  /// 是否显示定位按钮
-  ///
-  /// * 只针对Android
-  final bool showLocationButton;
-
   /// 是否显示比例尺控件
-  final bool showScaleControl;
-
-  /// 是否显示室内地图
-  final bool showIndoorMap;
-
-  /// 是否显示室内地图控件
-  final bool showIndoorMapControl;
+  final bool showScale;
 
   /// 所有手势是否可用
   ///
   /// 为null或true时其余手势可以单独控制
-  final bool? allGestureEnable;
+  final bool? allGesturesEnabled;
 
   /// 缩放手势是否可用
-  final bool zoomGestureEnable;
+  final bool zoomGesturesEnabled;
 
   /// 旋转手势是否可用
-  final bool rotateGestureEnable;
+  final bool rotateGesturesEnabled;
 
   /// 拖拽手势是否可用
-  final bool scrollGestureEnable;
+  final bool scrollGesturesEnabled;
 
   /// 倾斜手势是否可用
-  final bool tiltGestureEnable;
-
-  /// 是否以地图中心点缩放
-  final bool isGestureScaleByMapCenter;
+  final bool tiltGesturesEnabled;
 
   /// 初始缩放等级
   ///
@@ -146,21 +114,14 @@ class AMapView extends StatelessWidget {
       'mapLanguage': mapLanguage.val,
       'myLocationType': myLocationType.val,
       'locationInterval': locationInterval,
-      'showTraffic': showTraffic,
-      'showBuildings': showBuildings,
-      'showMapText': showMapText,
-      'showZoomControl': showZoomControl,
+      'showZoom': showZoom,
       'showCompass': showCompass,
-      'showLocationButton': showLocationButton,
-      'showScaleControl': showScaleControl,
-      'showIndoorMap': showIndoorMap,
-      'showIndoorMapControl': showIndoorMapControl,
-      'allGestureEnable': allGestureEnable,
-      'zoomGestureEnable': zoomGestureEnable,
-      'rotateGestureEnable': rotateGestureEnable,
-      'scrollGestureEnable': scrollGestureEnable,
-      'tiltGestureEnable': tiltGestureEnable,
-      'isGestureScaleByMapCenter': isGestureScaleByMapCenter,
+      'showScale': showScale,
+      'allGesturesEnabled': allGesturesEnabled,
+      'zoomGesturesEnabled': zoomGesturesEnabled,
+      'rotateGesturesEnabled': rotateGesturesEnabled,
+      'scrollGesturesEnabled': scrollGesturesEnabled,
+      'tiltGesturesEnabled': tiltGesturesEnabled,
       'initialZoomLevel': initialZoomLevel,
       'maxZoomLevel': maxZoomLevel,
       'minZoomLevel': minZoomLevel,
