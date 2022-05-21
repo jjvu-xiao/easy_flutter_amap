@@ -62,13 +62,14 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: AMapView(
-            myLocationType: MyLocationType.LOCATION_ROTATE,
+            myLocationType: MyLocationType.LOCATION_ROTATE_NO_CENTER,
             locationInterval: 2000,
             controller: controller,
             showCompass: false,
             showScale: true,
             showZoom: true,
             allGesturesEnabled: true,
+            marker: Text('测试'),
           )
         ),
         // floatingActionButton: FloatingActionButton(

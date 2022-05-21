@@ -7,6 +7,17 @@ import com.amap.api.maps.*
 import com.amap.api.maps.model.MyLocationStyle
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.platform.PlatformView
+import android.graphics.BitmapFactory
+import android.provider.SyncStateContract
+import cn.jjvu.xiao.easy_flutter_amap.R
+
+import com.amap.api.maps.model.BitmapDescriptorFactory
+import com.amap.api.maps.model.LatLng
+
+import com.amap.api.maps.model.MarkerOptions
+
+
+
 
 
 class EasyAmapView(
@@ -59,8 +70,6 @@ class EasyAmapView(
     private var allGesturesEnabled: Boolean = params["allGesturesEnabled"] as Boolean
 
 
-
-
     init {
 //        methodChannel = MethodChannel(messenger,"easy_flutter_amap")
 //        methodChannel.setMethodCallHandler(this)
@@ -96,6 +105,25 @@ class EasyAmapView(
         uiSetting.isTiltGesturesEnabled = tiltGesturesEnabled
         uiSetting.setAllGesturesEnabled(allGesturesEnabled)
 
+        val markerOption = MarkerOptions()
+        markerOption.position(LatLng(34.341568, 108.940174))
+        markerOption.title("西安市").snippet("西安市：34.341568, 108.940174")
+
+        markerOption.draggable(true) //设置Marker可拖动
+
+        markerOption.icon(
+            BitmapDescriptorFactory.fromBitmap(
+                BitmapFactory
+                    .decodeResource(context.getResources(), R.drawable.loc)
+            )
+        )
+        // 将Marker设置为贴地显示，可以双指下拉地图查看效果
+        // 将Marker设置为贴地显示，可以双指下拉地图查看效果
+        markerOption.isFlat = true //设置marker平贴地图效果
+
+        aMap.addMarker(markerOption)
+
+        val c = params["marker"]
 
 //        UiSettingsisZoomGesturesEnabled = true
 

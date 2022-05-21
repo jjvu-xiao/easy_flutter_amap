@@ -1,9 +1,5 @@
-import 'dart:async';
-import 'dart:typed_data';
-
 import 'package:easy_flutter_amap/src/map/view/amap_view_controller.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -36,7 +32,6 @@ class AMapView extends StatelessWidget {
     this.minZoomLevel = 3.0,
     this.customMapStyleId,
     this.onAMapViewCreated,
-    required this.marker
   })  : assert(
             initialZoomLevel >= minZoomLevel &&
                 initialZoomLevel <= maxZoomLevel,
@@ -95,6 +90,7 @@ class AMapView extends StatelessWidget {
   final bool tiltGesturesEnabled;
 
   /// 初始缩放等级
+  ///
   /// 默认[3,19]
   ///
   /// 有室内地图时[3,20]
@@ -108,8 +104,6 @@ class AMapView extends StatelessWidget {
 
   /// 自定义地图id
   final String? customMapStyleId;
-
-  final Widget marker;
 
 
   @override
@@ -132,7 +126,6 @@ class AMapView extends StatelessWidget {
       'maxZoomLevel': maxZoomLevel,
       'minZoomLevel': minZoomLevel,
       'customMapStyleId': customMapStyleId,
-      'marker': marker,
     };
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -149,10 +142,14 @@ class AMapView extends StatelessWidget {
           creationParamsCodec: StandardMessageCodec(),
           onPlatformViewCreated: _onViewCreated,
         );
-      default:
-        return Center(
-          child: Text("不支持的平台"),
-        )
+      case TargetPlatform.fuchsia:
+        throw UnsupportedError('不支持 Fuchsia');
+      case TargetPlatform.linux:
+        throw UnsupportedError('不支持 Linux');
+      case TargetPlatform.macOS:
+        throw UnsupportedError('不支持 MacOS');
+      case TargetPlatform.windows:
+        throw UnsupportedError('不支持 Windows');
     }
   }
 
