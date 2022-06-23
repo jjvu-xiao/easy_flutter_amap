@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:easy_flutter_amap/src/map/view/amap_view_controller.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -152,7 +149,7 @@ class AMapView extends StatelessWidget {
       default:
         return Center(
           child: Text("不支持的平台"),
-        )
+        );
     }
   }
 

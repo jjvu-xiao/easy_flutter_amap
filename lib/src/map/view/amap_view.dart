@@ -40,9 +40,9 @@ class AMapView extends StatelessWidget {
         assert(minZoomLevel >= 3, '最小缩放等级不能小于3'),
         super(key: key);
 
-  final AmapViewController? controller;
+  final AmapViewController controller;
 
-  final MapCreatedCallback? onAMapViewCreated;
+  final MapCreatedCallback onAMapViewCreated;
 
   final String viewType = 'AMapView';
 
@@ -103,7 +103,7 @@ class AMapView extends StatelessWidget {
   final double minZoomLevel;
 
   /// 自定义地图id
-  final String? customMapStyleId;
+  final String customMapStyleId;
 
 
   @override
