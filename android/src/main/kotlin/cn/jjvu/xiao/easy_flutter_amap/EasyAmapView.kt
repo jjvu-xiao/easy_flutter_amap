@@ -41,6 +41,8 @@ class EasyAmapView(
     // 是否显示缩放按钮
     private var showZoom: Boolean = params["showZoom"] as Boolean
 
+//    private var centerCoordinate: LatLng
+
     // 是否显示指南针
     private var showCompass: Boolean = params["showCompass"] as Boolean
 
@@ -49,6 +51,9 @@ class EasyAmapView(
 
     // logo显示位置
     private var logoPosition: Int = params["logoPosition"] as Int
+
+    // 缩放大小
+    private var zoomLevel: Int = params["initialZoomLevel"] as Int
 
     // 是否允许缩放手势
     private var zoomGesturesEnabled: Boolean = params["zoomGesturesEnabled"] as Boolean
@@ -79,7 +84,7 @@ class EasyAmapView(
 
         aMap.mapType = mapType
         aMap.setMapLanguage(mapLanguage)
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(1.0f))
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(zoomLevel.toFloat()))
         aMap.uiSettings.isMyLocationButtonEnabled = true
 
         myLocationStyle.let {
@@ -92,7 +97,7 @@ class EasyAmapView(
         uiSetting.isCompassEnabled = showCompass
         uiSetting.isScaleControlsEnabled = showScale
         uiSetting.isZoomControlsEnabled = showZoom
-//        uiSetting.logoPosition = logoPosition
+
         uiSetting.isZoomGesturesEnabled = zoomGesturesEnabled
         uiSetting.isScrollGesturesEnabled = scrollGesturesEnabled
         uiSetting.isRotateGesturesEnabled = rotateGesturesEnabled
@@ -147,6 +152,11 @@ class EasyAmapView(
     fun setLocationType(type: Int) {
         myLocationStyle.myLocationType(type)
         aMap.myLocationStyle = myLocationStyle
+    }
+
+    // 设置地图缩放比例
+    fun setZoomLevel(zoomLevel: Float) {
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(zoomLevel))
     }
 
 }

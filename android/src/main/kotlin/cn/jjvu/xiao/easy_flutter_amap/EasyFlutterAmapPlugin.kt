@@ -1,10 +1,7 @@
 package cn.jjvu.xiao.easy_flutter_amap
 
 import androidx.annotation.NonNull
-import com.amap.api.maps.model.LatLng
-import io.flutter.Log
 import io.flutter.embedding.android.FlutterActivity
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -12,7 +9,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import kotlin.math.log
 
 /** EasyFlutterAmapPlugin */
 class EasyFlutterAmapPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -40,6 +36,7 @@ class EasyFlutterAmapPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when(call.method) {
             "setMyLocationType" -> _aMapViewFactory.aMapView.setLocationType(call.arguments<Int>())
+//            "setZoomLevel" -> _aMapViewFactory.aMapView.
 
         }
     }
