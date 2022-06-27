@@ -7,18 +7,9 @@ import 'package:flutter/services.dart';
 
 class AmapViewController {
   
-  late final MethodChannel _mapChannel;
+  late final MethodChannel _mapChannel = MethodChannel('easy_flutter_amap');
   late final EventChannel _markerClickedEventChannel;
   late final EventChannel _mapClickedEventChannel;
-
-  AmapViewController() {
-    // _mapChannel = MethodChannel('cn.jjvu.xiaop/map');
-    _mapChannel = MethodChannel('easy_flutter_amap');
-    // _markerClickedEventChannel = EventChannel('cn.jjvu.xiaop/marker_clicked');
-    // _mapClickedEventChannel = EventChannel('cn.jjvu.xiaop/map_clicked');
-  }
-
-  void dispose() {}
 
   /// 设置我的位置
   Future setMyLocationStyle(MyLocationStyle style) {

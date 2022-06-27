@@ -2,23 +2,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.*
-//import com.amap.api.location.AMapLocationClient.updatePrivacyAgree
-//import com.amap.api.location.AMapLocationClient.updatePrivacyShow
 import com.amap.api.maps.model.MyLocationStyle
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.platform.PlatformView
 import android.graphics.BitmapFactory
-import android.provider.SyncStateContract
 import cn.jjvu.xiao.easy_flutter_amap.R
 
 import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 
 import com.amap.api.maps.model.MarkerOptions
-
-
-
-
 
 class EasyAmapView(
     private val context: Context,
@@ -36,23 +29,26 @@ class EasyAmapView(
     // 语言, 中文-zh_cn 英文-en
     private val mapLanguage: String = params["mapLanguage"] as String
 
+    // 显示我的位置
     private val myLocationStyle = MyLocationStyle()
 
+    // 是否显示我的位置
     private var showMyLocationType: Int = params["myLocationType"] as Int
 
+    // 定位间隔
     private var locationInterval: Int = params["locationInterval"] as Int
 
     // 是否显示缩放按钮
     private var showZoom: Boolean = params["showZoom"] as Boolean
 
-    // 是否显示直男症
+    // 是否显示指南针
     private var showCompass: Boolean = params["showCompass"] as Boolean
 
     // 是否显示比例尺
     private var showScale: Boolean = params["showScale"] as Boolean
 
-//     logo显示位置
-//    private var logoPosition: Int = params["logoPosition"] as Int
+    // logo显示位置
+    private var logoPosition: Int = params["logoPosition"] as Int
 
     // 是否允许缩放手势
     private var zoomGesturesEnabled: Boolean = params["zoomGesturesEnabled"] as Boolean
@@ -97,8 +93,7 @@ class EasyAmapView(
         uiSetting.isCompassEnabled = showCompass
         uiSetting.isScaleControlsEnabled = showScale
         uiSetting.isZoomControlsEnabled = showZoom
-//        uiSetting.logoPosition = logoPosition
-
+        uiSetting.logoPosition = logoPosition
         uiSetting.isZoomGesturesEnabled = zoomGesturesEnabled
         uiSetting.isScrollGesturesEnabled = scrollGesturesEnabled
         uiSetting.isRotateGesturesEnabled = rotateGesturesEnabled
