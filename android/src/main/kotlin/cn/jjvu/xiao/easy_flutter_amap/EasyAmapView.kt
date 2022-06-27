@@ -89,11 +89,10 @@ class EasyAmapView(
         }
 
         val uiSetting: UiSettings = aMap.uiSettings
-
         uiSetting.isCompassEnabled = showCompass
         uiSetting.isScaleControlsEnabled = showScale
         uiSetting.isZoomControlsEnabled = showZoom
-        uiSetting.logoPosition = logoPosition
+//        uiSetting.logoPosition = logoPosition
         uiSetting.isZoomGesturesEnabled = zoomGesturesEnabled
         uiSetting.isScrollGesturesEnabled = scrollGesturesEnabled
         uiSetting.isRotateGesturesEnabled = rotateGesturesEnabled

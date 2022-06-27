@@ -25,11 +25,11 @@ class EasyFlutterAmapPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
     private lateinit var _aMapViewFactory: AMapViewFactory
 
-    private val tag = "easy_flutter_amap"
+    private val TAG = "easy_flutter_amap"
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         this._flutterPluginBinding = flutterPluginBinding
-        _channel = MethodChannel(flutterPluginBinding.binaryMessenger, "easy_flutter_amap")
+        _channel = MethodChannel(flutterPluginBinding.binaryMessenger, TAG)
         _channel.setMethodCallHandler(this)
     }
 
